@@ -81,7 +81,6 @@ const forgotPassword = async (req, res) => {
       { email: req.body.email },
       { password: 0 }
     );
-    console.log(user);
     if (user) {
       const token = await Auth.createToken({
         firstName: user.firstName,
@@ -89,8 +88,6 @@ const forgotPassword = async (req, res) => {
         email: user.email,
         id: user._id,
       });
-
-      console.log(token);
       const resetUrl = `http://localhost:5173/reset-password/${token}`;
       const emailContent = {
         to: user.email,
@@ -113,7 +110,6 @@ const forgotPassword = async (req, res) => {
         });
     }
   } catch (error) {
-    console.error(error);
     res
       .status(500)
       .send({ message: "Internal Server error", error: error.message });
@@ -124,7 +120,6 @@ const resetPassword = async (req, res) => {
   try {
     let token = req.headers.authorization?.split(" ")[1];
     let data = await Auth.decodeToken(token);
-    console.log(data);
     if (req.body.newpassword === req.body.confirmpassword) {
       let user = await usersModel.findOne({ email: data.email });
       user.password = await Auth.hashPassword(req.body.newpassword);
