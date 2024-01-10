@@ -8,6 +8,6 @@ router.post("/create",useController.createUsers)
 router.delete("/:id",useController.deleteUser)
 router.post("/login",useController.Login)
 router.post("/forgot-password",useController.forgotPassword)
-router.post("/reset-password",useController.resetPassword)
+router.post("/reset-password",Auth.validate,useController.resetPassword)
 
 export default router

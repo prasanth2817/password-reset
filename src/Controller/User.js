@@ -139,7 +139,9 @@ const resetPassword = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    res.status(401).send({
+      message: "Invalid or expired token",
+    });
     res.status(500).send({
       message: "Internal Server Error",
       error: error.message,

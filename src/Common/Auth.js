@@ -12,10 +12,15 @@ const hashCompare = async (password, hash) => {
 };
 
 const createToken = async (payload) => {
-  const token = await jwt.sign(payload, process.env.JWT_SECRECT, {
-    expiresIn: process.env.JWT_EXPIRE,
-  });
-  return token;
+ 
+  try {
+    const token = await jwt.sign(payload, process.env.JWT_SECRECT, {
+      expiresIn: process.env.JWT_EXPIRE,
+    });
+    return token;
+  } catch (error) {
+    console.error('Error creating token:', error);
+  }
 };
 
 const decodeToken = async (token) => {
