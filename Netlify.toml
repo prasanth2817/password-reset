@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build"
+  publish = "build/"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[headers]
+  # Define custom headers
+  "/*.html" = [
+    "Cache-Control: public, max-age=0, must-revalidate"
+  ]
